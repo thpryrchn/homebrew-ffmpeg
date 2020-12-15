@@ -3,7 +3,7 @@ class Ffmpeg < Formula
   homepage "https://ffmpeg.org/"
   license "GPL-2.0-or-later"
   revision 6
-  head "https://github.com/FFmpeg/FFmpeg.git"
+  head "https://github.com/thpryrchn/FFmpeg.git"
 
   # stable do
   #   url "https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.xz"
