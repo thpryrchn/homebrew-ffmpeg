@@ -171,6 +171,7 @@ class Ffmpeg < Formula
     if build.with? "ndi"
         args << "--extra-cflags=-I/Library/NDI/include"
         args << "--extra-ldflags=-L/Library/NDI/lib/x64"
+    end
 
     args << "--enable-version3" if build.with?("opencore-amr") || build.with?("libvmaf")
 
