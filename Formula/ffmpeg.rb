@@ -150,7 +150,7 @@ class Ffmpeg < Formula
     args << "--enable-libtwolame" if build.with? "two-lame"
     args << "--enable-libvidstab" if build.with? "libvidstab"
     args << "--enable-libvmaf" if build.with? "libvmaf"
-    args << "--enable-libwavpack" if build.with? "wavpack"
+ #   args << "--enable-libwavpack" if build.with? "wavpack" -- Seems to be not avaliable anymore
     args << "--enable-libwebp" if build.with? "webp"
     args << "--enable-libxml2" if build.with? "libxml2"
     args << "--enable-libxvid" if build.with? "xvid"
