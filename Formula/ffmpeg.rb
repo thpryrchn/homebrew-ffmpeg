@@ -5,17 +5,17 @@ class Ffmpeg < Formula
   revision 6
   head "https://github.com/FFmpeg/FFmpeg.git"
 
-  stable do
-    url "https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.xz"
-    version "4.3.1-with-options" # to distinguish from homebrew-core's ffmpeg
-    sha256 "ad009240d46e307b4e03a213a0f49c11b650e445b1f8be0dda2a9212b34d2ffb"
-    # https://trac.ffmpeg.org/ticket/8760
-    # Remove in next release
-    patch do
-      url "https://github.com/FFmpeg/FFmpeg/commit/7c59e1b0f285cd7c7b35fcd71f49c5fd52cf9315.patch?full_index=1"
-      sha256 "1cbe1b68d70eadd49080a6e512a35f3e230de26b6e1b1c859d9119906417737f"
-    end
-  end
+  # stable do
+  #   url "https://ffmpeg.org/releases/ffmpeg-4.3.1.tar.xz"
+  #   version "4.3.1-with-options" # to distinguish from homebrew-core's ffmpeg
+  #   sha256 "ad009240d46e307b4e03a213a0f49c11b650e445b1f8be0dda2a9212b34d2ffb"
+  #   # https://trac.ffmpeg.org/ticket/8760
+  #   # Remove in next release
+  #   patch do
+  #     url "https://github.com/FFmpeg/FFmpeg/commit/7c59e1b0f285cd7c7b35fcd71f49c5fd52cf9315.patch?full_index=1"
+  #     sha256 "1cbe1b68d70eadd49080a6e512a35f3e230de26b6e1b1c859d9119906417737f"
+  #   end
+  # end
 
   option "with-chromaprint", "Enable the Chromaprint audio fingerprinting library"
   option "with-decklink", "Enable DeckLink support"
@@ -38,6 +38,7 @@ class Ffmpeg < Formula
   option "with-srt", "Enable SRT library"
   option "with-libvmaf", "Enable libvmaf scoring library"
   option "with-libxml2", "Enable libxml2 library"
+  option "with-ndi", "Enable NDI. Needs NDI SDK in /Library/NDI"
 
   depends_on "nasm" => :build
   depends_on "pkg-config" => :build
@@ -159,13 +160,17 @@ class Ffmpeg < Formula
 
     # These librares are GPL-incompatible, and require ffmpeg be built with
     # the "--enable-nonfree" flag, which produces unredistributable libraries
-    args << "--enable-nonfree" if build.with?("decklink") || build.with?("fdk-aac") || build.with?("openssl")
+    args << "--enable-nonfree" if build.with?("decklink") || build.with?("fdk-aac") || build.with?("openssl" || build.with?("ndi")
 
     if build.with? "decklink"
       args << "--enable-decklink"
       args << "--extra-cflags=-I#{HOMEBREW_PREFIX}/include"
       args << "--extra-ldflags=-L#{HOMEBREW_PREFIX}/include"
     end
+
+    if build.with? "ndi"
+        args << "--extra-cflags=-I/Library/NDI/include"
+        args << "--extra-ldflags=-L/Library/NDI/lib/x64"
 
     args << "--enable-version3" if build.with?("opencore-amr") || build.with?("libvmaf")
 
