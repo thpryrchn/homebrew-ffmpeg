@@ -169,6 +169,7 @@ class Ffmpeg < Formula
     end
 
     if build.with? "ndi"
+        args << "--enable-libndi_newtek"
         args << "--extra-cflags=-I/Library/NDI/include"
         args << "--extra-ldflags=-L/Library/NDI/lib/x64"
     end
