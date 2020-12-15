@@ -86,7 +86,7 @@ class Ffmpeg < Formula
   depends_on "srt" => :optional
   depends_on "tesseract" => :optional
   depends_on "two-lame" => :optional
-  depends_on "wavpack" => :optional
+#  depends_on "wavpack" => :optional
   depends_on "webp" => :optional
   depends_on "xvid" => :optional
   depends_on "zeromq" => :optional
